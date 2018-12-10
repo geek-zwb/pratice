@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>lazy load</title>
+  <style>
+    .container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .img {
+      width: 25%;
+      height: 600px;
+    }
+    .pic {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+    <div class="img"><img data-src="./images/1.jpg" alt="loading..." class="pic"></div>
+  </div>
+  <script>
+    const viewHeight = document.documentElement.clientHeight;
+    const imgs = document.getElementsByTagName('img');
+    let num = 0;
+    function lazyload() {
+      const len = imgs.length;
+      for (let i = num; i < len; i++) {
+        const currentImg = imgs[i];
+        const top = currentImg.getBoundingClientRect().top;
+        if(top < viewHeight && !currentImg.src) {
+          currentImg.src = currentImg.getAttribute('data-src');
+          // num = i + 1;
+        }
+      }
+    }
+
+    function throttle(fn, interval) {
+        let latest = 0;
+        return function (...args) {
+            let now = Date.now();
+            if(now - latest >= interval) {
+              latest = now;
+              fn.apply(this, args);
+            }
+        }
+    }
+
+    function debounce(fn, interval) {
+        let timer;
+        return function (...args) {
+            if(timer) {
+              clearTimeout(timer);
+            }
+            timer = setTimeout(() => fn.apply(this, args), interval)
+        }
+
+    }
+
+
+
+    lazyload();
+
+    // window.addEventListener('scroll', lazyload, false);
+    window.addEventListener('scroll', debounce(() => console.log('scroll'), 1000), false);
+  </script>
+</body>
+</html>

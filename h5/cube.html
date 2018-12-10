@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .demo {
+      width: 300px;
+      height: 300px;
+      perspective: 1000px;
+      position: relative;
+      margin: 300px auto;
+    }
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transform-style: preserve-3d;
+    }
+    .cube-face {
+      border: 2px solid #000;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      overflow: hidden;
+      opacity: .6;
+      backface-visibility: visible;
+    }
+    .show-default {
+      transform: translateZ(-150px) rotateY( -15deg ) rotateX(-15deg);
+    }
+    .is-front {
+      transform: translateZ(150px);
+    }
+    .is-back {
+      transform: translateZ(150px) rotateX(-180deg);
+    }
+    .is-right {
+      transform: rotateY(90deg) translateZ(150px);
+    }
+    .is-left {
+        transform: rotateY( -90deg ) translateZ(150px);
+      }
+    .is-top {
+       transform: rotateX( 90deg ) translateZ(150px);
+     }
+    .is-bottom {
+       transform: rotateX( -90deg ) translateZ(150px);
+     }
+    img {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo">
+    <div class="cube show-default">
+      <div class="cube-face is-front"><img src="./images/1.jpg" alt=""></div>
+      <div class="cube-face is-back"><img src="./images/1.jpg" alt=""></div>
+      <div class="cube-face is-right"><img src="./images/1.jpg" alt=""></div>
+      <div class="cube-face is-left"><img src="./images/1.jpg" alt=""></div>
+      <div class="cube-face is-top"><img src="./images/1.jpg" alt=""></div>
+      <div class="cube-face is-bottom"><img src="./images/1.jpg" alt=""></div>
+    </div>
+  </div>
+</body>
+</html>

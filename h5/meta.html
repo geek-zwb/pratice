@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Title</title>
+  <style lang="scss">
+    $vw_fontsize: 75;
+    @funciton rem($px) {
+      @return ($px/$vw_fontsize) * 1rem;
+    }
+    @vw_design: 750;
+    html {
+      font-size: $vw_fontsize / ($vw_design / 2) * 100vw;
+    }
+  </style>
+</head>
+<body>
+
+</body>
+</html>

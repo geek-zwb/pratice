@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #000 0%, #5788fe 100%);
+    }
+
+    .filter {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #fe5757;
+      animation: colorChange 30s ease-in-out infinite;
+      animation-fill-mode: both;
+      mix-blend-mode: overlay;
+    }
+
+    @keyframes colorChange {
+      0%, 100% {
+        opacity: 0;
+      }
+      50% {
+        opacity: .8;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="filter"></div>
+<canvas id="canvas"></canvas>
+<script>
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d'),
+    WIDTH = document.documentElement.clientWidth,
+    HEIGHT = document.documentElement.clientHeight;
+let initRoundPopulation = 100,
+    round = [],
+    mouseRounds = [],
+    color = 0,
+    para = {
+      rIncrease: .5,
+      o: 0.05,
+    };
+
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
+
+function RoundItem(uid, x, y) {
+  this.index = uid;
+  this.x = x;
+  this.y = y;
+  this.r = Math.random() * 2 + 1;
+  const alpha = (Math.floor(Math.random() * 10 + 1)) / 10 / 2;
+  this.color = `rgba(255, 255, 255, ${alpha})`;
+}
+
+RoundItem.prototype.draw = function() {
+  context.fillStyle = this.color;
+  context.shadowBlur = this.r * 2;
+  context.shadowColor = this.color;
+  context.beginPath();
+  context.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+  context.closePath();
+  context.fill();
+};
+
+RoundItem.prototype.move = function() {
+  this.y = this.y < -10 ? HEIGHT + 10 : this.y - 0.25;
+  this.draw();
+};
+
+function animate() {
+  context.clearRect(0, 0, WIDTH, HEIGHT);
+  // **
+  for (let roundItem of round) {
+    roundItem.move();
+  }
+
+  // mousemove
+  color += .1;
+  const color2 = `hsl(${color}, 100%, 80%)`;
+  const len = mouseRounds.length;
+  for (let i = 0; i < mouseRounds.length; i++) {
+    console.log('mouseRounds[i]', mouseRounds[i]);
+    context.fillStyle = color2;
+    context.beginPath();
+    context.arc(mouseRounds[i].mouseX, mouseRounds[i].mouseY, mouseRounds[i].r, 0, Math.PI * 2);
+    context.closePath();
+    context.fill();
+    mouseRounds[i].r += para.rIncrease;
+    mouseRounds[i].o -= para.o;
+    if(mouseRounds[i].o <= 0) {
+      mouseRounds.splice(i--, 1);
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+window.onmousemove = function(event) {
+  const mouseX = event.clientX;
+  const mouseY = event.clientY;
+  console.log('mouseX', mouseX);
+  console.log('mouseY', mouseX);
+  mouseRounds.push({
+    mouseX,
+    mouseY,
+    r: 1,
+    o: 1,
+  });
+};
+
+function init() {
+  for (let i = 0; i < initRoundPopulation; i++) {
+    round[i] = new RoundItem(i, Math.random() * WIDTH, Math.random() * HEIGHT);
+    round[i].draw();
+  }
+  animate();
+}
+
+init();
+
+</script>
+</body>
+</html>
