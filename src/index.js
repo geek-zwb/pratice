@@ -7,6 +7,10 @@ function component() {
     ele.innerHTML = _.join(['Hello', 'winter'], ' ');
     ele.classList.add('hello');
 
+    const icon = document.createElement('i');
+    icon.classList.add('i-icon', 'i-icon-permission');
+    ele.insertBefore(icon, null);
+
     // add img
     const img = new Image();
     img.src = png;

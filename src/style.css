@@ -1,3 +1,84 @@
 .hello {
   color: red;
 }
+@font-face {
+  font-family: "xriconfont";
+  src: url('../assets/fonts/xriconfont.eot'); /* IE9*/
+  src: url('../assets/fonts/xriconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../assets/fonts/xriconfont.woff') format('woff'),
+    /* chrome, firefox */ url('../assets/fonts/xriconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/ url('../assets/fonts/xriconfont.svg?#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.i-icon {
+  display: inline-block;
+  font-family: "xriconfont" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  text-rendering: auto;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: middle;
+}
+
+.i-icon-menu:before {
+  content: "\e7c5";
+}
+
+.i-icon-monitoring:before {
+  content: "\e654";
+}
+
+.i-icon-goodsfill:before {
+  content: "\e778";
+}
+
+.i-icon-systemmanage:before {
+  content: "\e645";
+}
+
+.i-icon-monitoring1:before {
+  content: "\e786";
+}
+
+.i-icon-permission:before {
+  content: "\e7ad";
+}
+
+.i-icon-system:before {
+  content: "\e6ea";
+}
+
+.i-icon-action:before {
+  content: "\e655";
+}
+
+.i-icon-message:before {
+  content: "\e617";
+}
+
+.i-icon-yuzhi:before {
+  content: "\e83b";
+}
+
+.i-icon-shop:before {
+  content: "\e693";
+}
+
+.i-icon-rules:before {
+  content: "\e89a";
+}
+
+.i-icon-shenhekuaizhuang:before {
+  content: "\e7ca";
+}
+
+.i-icon-about:before {
+  content: "\e7a6";
+}
+
+.i-icon-http:before {
+  content: "\e609";
+}
