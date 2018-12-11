@@ -1,10 +1,10 @@
-import _ from 'lodash';
+import {join} from 'lodash';
 import './style.css';
 import png from '../assets/img/xiari.png';
 
 function component() {
     const ele = document.createElement('div');
-    ele.innerHTML = _.join(['Hello', 'winter'], ' ');
+    ele.innerHTML = join(['Hello', 'winter'], ' ');
     ele.classList.add('hello');
 
     const icon = document.createElement('i');

@@ -44,5 +44,8 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     hot: true
+  },
+  optimization: {
+    usedExports: true // tree shaking, relies on the static structure of ES2015 module syntax
   }
 };
