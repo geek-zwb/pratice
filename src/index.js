@@ -8,7 +8,7 @@ function component() {
     ele.classList.add('hello');
 
     const icon = document.createElement('i');
-    icon.classList.add('i-icon', 'i-icon-permission');
+    icon.classList.add('i-icon', 'i-icon-system');
     ele.insertBefore(icon, null);
 
     // add img
