@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './js-data-juejin/echarts/index.js',
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -36,7 +36,8 @@ module.exports = {
   plugins: [
       new CleanWebpackPlugin(['dist']),
       new HtmlWebpackPlugin({
-        title: 'Hot Module Replacement'
+        title: 'Hot Module Replacement',
+        template: './js-data-juejin/index.html'
       }),
       new webpack.HotModuleReplacementPlugin()
   ],

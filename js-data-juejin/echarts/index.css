@@ -1,0 +1,14 @@
+#app {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+.left {
+  flex: 2;
+}
+.scatter {
+  height: 300px;
+}
+.right {
+  flex: 1;
+}
