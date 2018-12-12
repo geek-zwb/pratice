@@ -9,6 +9,9 @@
 .scatter {
   height: 300px;
 }
+.line {
+  height: 500px;
+}
 .right {
   flex: 1;
 }

@@ -1,30 +1,67 @@
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/scatter';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/visualMap';
 import './index.css';
+import {getStudent, getTimeRandom} from './data';
+
+const data = getStudent();
+const timeData = getTimeRandom();
 
 const scatter = echarts.init(document.querySelector('.scatter'));
 
-const empsRows = [
-  { RowId: '001', EmpId: '10', LastName: 'Smith', FirstName: 'Joe', Salary: 40000 },
-  { RowId: '002', EmpId: '12', LastName: 'Jones', FirstName: 'Mary', Salary: 50000 },
-  { RowId: '003', EmpId: '11', LastName: 'Johnson', FirstName: 'Cathy', Salary: 44000 },
-  { RowId: '004', EmpId: '22', LastName: 'Jones', FirstName: 'Bob', Salary: 55000 },
-  { RowId: '005', EmpId: '24', LastName: 'Steve', FirstName: 'Mike', Salary: 62000 }
-];
-
 scatter.setOption({
   dataset: {
-    source: empsRows
+    source: data
   },
   series: [{
     type: 'scatter',
     encode: {
-      x: 'FirstName',
-      y: 'Salary'
+      x: 'id',
+      y: 'height',
     }
   }],
   xAxis: {
-    type: 'category'
+    type: 'category',
+    name: '学号',
+    nameLocation: 'middle',
+    nameGap: 30
+  },
+  yAxis: {
+    type: 'value',
+    scale: true,
+    name: '身高',
+  },
+  visualMap: {
+    // 视觉映射
+    type: 'piecewise', // piecewise 分段式， continuous 连续式
+    dimension: 'gender',
+    pieces: [
+      {value: 'male', label: '男生', color: '#1890ff'},
+      {value: 'female', label: '女生', color: '#f5222d'},
+    ],
+    orient: 'horizontal'
+  }
+});
+
+const lineChart = echarts.init(document.querySelector('.line'));
+lineChart.setOption({
+  dataset: {
+    source: timeData
+  },
+  series: {
+    type: 'line',
+    encode: {
+      x: 'time',
+      y: 'value'
+    },
+    smooth: true
+  },
+  xAxis: {
+    type: 'value',
+    name: '秒',
+    nameLocation: 'middle',
+    nameGap: 30
   },
   yAxis: {
     type: 'value',
