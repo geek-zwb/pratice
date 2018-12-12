@@ -1,10 +1,14 @@
+* {
+  box-sizing: border-box;
+}
 #app {
   width: 100vw;
   display: flex;
   justify-content: center;
 }
 .left {
-  flex: 2;
+  padding: 8px;
+  flex: 1;
 }
 .scatter {
   height: 300px;
@@ -13,5 +17,12 @@
   height: 500px;
 }
 .right {
+  padding: 8px;
   flex: 1;
+}
+.bar {
+  height: 500px;
+}
+.pie {
+  height: 300px;
 }

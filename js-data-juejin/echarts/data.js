@@ -1,3 +1,16 @@
+function getRandomInt(min, max) {
+  return Math.round(min + Math.random() * (max - min));
+}
+/**
+ * get the coefficient range (-r, r)
+ * @param r
+ * @returns {number}
+ */
+function randomCoefficient(r) {
+  const rand = Math.random();
+  return (rand - 0.5) * 2 * r; // get the coefficient range (-r, r)
+}
+
 export function getStudent() {
   const students = [];
   const n = 50;
@@ -6,10 +19,6 @@ export function getStudent() {
     male: [155, 180],
     female: [145, 170]
   };
-
-  function getRandomInt(min, max) {
-    return Math.round(min + Math.random() * (max - min));
-  }
 
   for (let i = 0; i < n; i++) {
     const gender = Math.random() > 0.5 ? 'male' : 'female';
@@ -27,16 +36,6 @@ export function getStudent() {
   return students;
 }
 
-/**
- * get the coefficient range (-r, r)
- * @param r
- * @returns {number}
- */
-function randomCoefficient(r) {
-    const rand = Math.random();
-    return (rand - 0.5) * 2 * r; // get the coefficient range (-r, r)
-}
-
 export function getTimeRandom() {
   const n = 60 - 1;
   const temp = [100];
@@ -51,4 +50,19 @@ export function getTimeRandom() {
       return {time: index + 1, value: item};
   });
 }
+
+export function getSchoolData() {
+  let N = [],
+      P = [],
+      data = [];
+  for (let i = 0; i < 5; i++) {
+    const n = getRandomInt(1000, 1500);
+    const p = getRandomInt(85, 100) / 100;
+    N.push(n);
+    P.push(p);
+    data.push({name: String.fromCharCode(65 + i), N: n, P: p});
+  }
+    return {N, P, data};
+}
+
 
