@@ -7,6 +7,8 @@ import {getStudent, getTimeRandom} from './data';
 
 const data = getStudent();
 const timeData = getTimeRandom();
+const timeData2 = getTimeRandom();
+console.log('timeData2', timeData2);
 
 const scatter = echarts.init(document.querySelector('.scatter'));
 
@@ -49,14 +51,33 @@ lineChart.setOption({
   dataset: {
     source: timeData
   },
-  series: {
+  series:[ {
+    name: 'line1',
     type: 'line',
     encode: {
       x: 'time',
       y: 'value'
     },
     smooth: true
-  },
+  }, {
+    name: 'line2',
+    type: 'line',
+    encode: {
+      x: 'time',
+      y: 'value'
+    },
+    smooth: true,
+    data: timeData2.map(item => [item.time, item.value])
+  }, {
+    name: 'line2',
+    type: 'line',
+    encode: {
+      x: 'time',
+      y: 'value'
+    },
+    smooth: true,
+    data: getTimeRandom().map(item => [item.time, item.value])
+  }],
   xAxis: {
     type: 'value',
     name: '秒',
