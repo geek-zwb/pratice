@@ -13,14 +13,14 @@
 .scatter {
   height: 300px;
 }
-.line {
+.line, .box-plots {
   height: 500px;
 }
 .right {
   padding: 8px;
   flex: 1;
 }
-.bar {
+.bar, .graph {
   height: 500px;
 }
 .pie {

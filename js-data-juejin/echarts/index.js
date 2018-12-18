@@ -3,10 +3,12 @@ import 'echarts/lib/chart/scatter';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/pie';
+import 'echarts/lib/chart/boxplot';
+import 'echarts/lib/chart/graph';
 import 'echarts/lib/component/visualMap';
 import 'echarts/lib/component/markLine';
 import './index.css';
-import {getStudent, getTimeRandom, getSchoolData} from './data';
+import {getStudent, getTimeRandom, getSchoolData, getYiTai, getGraphData} from './data';
 
 const data = getStudent();
 const timeData = getTimeRandom();
@@ -103,13 +105,13 @@ barChart.setOption({
       type: 'bar',
       encode: {
         x: 'id',
-        y: 'N'
+        y: 'N',
       },
       label: {
         normal: {
           show: true,
-          position: 'top'
-        }
+          position: 'top',
+        },
       },
       markLine: {
         data: [
@@ -117,24 +119,24 @@ barChart.setOption({
             type: 'average',
             name: '平均值',
             lineStyle: {
-              color: '#ffa39e'
-            }
+              color: '#ffa39e',
+            },
           },
-        ]
-      }
+        ],
+      },
     },
     {
       type: 'bar',
       yAxisIndex: 1,
       encode: {
         x: 'id',
-        y: 'P'
+        y: 'P',
       },
       label: {
         normal: {
           show: true,
-          position: 'top'
-        }
+          position: 'top',
+        },
       },
       markLine: {
         data: [
@@ -142,22 +144,23 @@ barChart.setOption({
             type: 'average',
             name: '平均值',
             lineStyle: {
-              color: '#096dd9'
-            }
-          }
-        ]
-      }
-    }
+              color: '#096dd9',
+            },
+          },
+        ],
+      },
+    },
   ],
   xAxis: {
     type: 'category',
   },
-  yAxis: [{
-    type: 'value',
-  }, {
-    type: 'value',
-    name: '本科率'
-  }],
+  yAxis: [
+    {
+      type: 'value',
+    }, {
+      type: 'value',
+      name: '本科率',
+    }],
 });
 
 const pieChart = echarts.init(document.querySelector('.pie'));
@@ -173,16 +176,85 @@ pieChart.setOption({
     })),
   }*/
   dataset: {
-    source: getSchoolData().data
+    source: getSchoolData().data,
   },
   series: {
     type: 'pie',
     label: {
-      formatter: '{@name}: {@N} ({d}%)'
+      formatter: '{@name}: {@N} ({d}%)',
     },
     encode: {
       value: 'N',
-      itemName: 'name'
+      itemName: 'name',
+    },
+  },
+});
+
+// 箱线图
+const boxPlotsChart = echarts.init(document.querySelector('.box-plots'));
+const boxPlotsDatas = [
+  [850, 740, 900, 1070, 930, 850, 950, 980, 980, 880, 1000, 980, 930, 650, 760, 810, 1000, 1000, 960, 960],
+  [960, 940, 960, 940, 880, 800, 850, 880, 900, 840, 830, 790, 810, 880, 880, 830, 800, 790, 760, 800],
+  [880, 880, 880, 860, 720, 720, 620, 860, 970, 950, 880, 910, 850, 870, 840, 840, 850, 840, 840, 840],
+  [890, 810, 810, 820, 800, 770, 760, 740, 750, 760, 910, 920, 890, 860, 880, 720, 840, 850, 850, 780],
+  [890, 840, 780, 810, 760, 810, 790, 810, 820, 850, 870, 870, 810, 740, 810, 940, 950, 800, 810, 870],
+];
+const boxPlotsData = boxPlotsDatas.map(
+    (data, i) => Object.assign({id: i}, getYiTai(data)));
+const outliersData = boxPlotsData.map(function({id, outliers}) {
+  return outliers.map(outlier => [id, outlier]);
+}).reduce((left, right) => left.concat(right));
+boxPlotsChart.setOption({
+  dataset: [
+    {
+      source: boxPlotsData
+    },
+    {
+      source: outliersData
     }
+  ],
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    type: 'value',
+    scale: true
+  },
+  series: [
+    {
+      type: 'boxplot',
+      datasetIndex: 0,
+      encode: {
+        x: 'id',
+        y: [ 'min', 'Q1', 'median', 'Q3', 'max' ]
+      }
+    },
+    {
+      type: 'scatter',
+      datasetIndex: 1,
+      encode: {
+        x: 0,
+        y: 1
+      }
+    }
+  ]
+});
+
+// 关系图
+const graphChart = echarts.init(document.querySelector('.graph'));
+graphChart.setOption({
+  series: {
+    type: 'graph',
+    data: getGraphData().vertices,
+    links: getGraphData().edges,
+    layout: 'circular',
+    symbolSize: 50,
+    label: {
+      normal: {
+        show: true
+      }
+    },
+    edgeSymbol: ['circle', 'arrow'],
+    edgeSymbolSize: [4, 10]
   }
 });
