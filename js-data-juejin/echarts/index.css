@@ -13,7 +13,7 @@
 .scatter {
   height: 300px;
 }
-.line, .box-plots {
+.line, .box-plots, .mul-dimension {
   height: 500px;
 }
 .right {

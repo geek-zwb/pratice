@@ -7,8 +7,9 @@ import 'echarts/lib/chart/boxplot';
 import 'echarts/lib/chart/graph';
 import 'echarts/lib/component/visualMap';
 import 'echarts/lib/component/markLine';
+import 'echarts/lib/component/dataZoom';
 import './index.css';
-import {getStudent, getTimeRandom, getSchoolData, getYiTai, getGraphData} from './data';
+import {getStudent, getTimeRandom, getSchoolData, getYiTai, getGraphData, getMultipleDimensionData} from './data';
 
 const data = getStudent();
 const timeData = getTimeRandom();
@@ -257,4 +258,78 @@ graphChart.setOption({
     edgeSymbol: ['circle', 'arrow'],
     edgeSymbolSize: [4, 10]
   }
+});
+
+const mulDimensionChart = echarts.init(document.querySelector('.mul-dimension'));
+mulDimensionChart.setOption({
+  dataset: [
+    {
+      source: getMultipleDimensionData().filter(item => item[0] === '北京'),
+    }, {
+      source: getMultipleDimensionData().filter(item => item[0] === '广州'),
+    },{
+      source: getMultipleDimensionData().filter(item => item[0] === '上海'),
+    }
+  ],
+  series: [
+    {
+      name: '北京',
+      datasetIndex: 0,
+      type: 'scatter',
+      encode: {
+        x: 1,
+        y: 2
+      }
+    },
+    {
+      name: '广州',
+      datasetIndex: 1,
+      type: 'scatter',
+      encode: {
+        x: 1,
+        y: 2
+      }
+    },
+    {
+      name: '上海',
+      datasetIndex: 2,
+      type: 'scatter',
+      encode: {
+        x: 1,
+        y: 2
+      }
+    },
+  ],
+  xAxis: {
+    type: 'category'
+  },
+  yAxis: {
+    type: 'value'
+  },
+  legend: {
+    right: 10,
+    data: ['北京', '广州', '上海']
+  },
+  visualMap: [
+    {
+      type: 'continuous',       // 定义为连续型数据
+      text: [ 'PM2.5' ],
+      dimension: 3,     // 绑定到 PM2.5 数据
+      inRange: {                // 范围内的图元样式
+        symbolSize: [ 10, 70 ]  // 图元大小范围
+      },
+
+      // 定义图例位置
+      left: 'right',
+      top: '10%',
+      calculable: true
+    }
+  ],
+  dataZoom: [
+    {
+      type: 'slider', // 定义为独立的、可操作的滑动组件
+      startValue: 15,
+      endValue: 31
+    }
+  ]
 });
