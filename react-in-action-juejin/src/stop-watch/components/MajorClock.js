@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {ms2Time} from '../libs/util';
 
 class MajorClock extends React.Component {
   render() {
     const milliseconds = this.props.milliseconds;
     return (
         <div style={{display: 'flex', alignItems: 'center'}}>
-          {milliseconds}
+          {ms2Time(milliseconds)}
         </div>
     );
   }

@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MajorClock from './MajorClock';
 
-const SplitTimes = props => {
-  return (
-      <div>
-        <div>计次</div>
-        {props.splits.map(split => split + '  ')}
-      </div>
-  );
+const SplitTimes = ({splits=[]}) => {
+  return splits.map((v, k) => (
+      <MajorClock key={k} milliseconds={v} />
+  ));
 };
 
 SplitTimes.propTypes = {

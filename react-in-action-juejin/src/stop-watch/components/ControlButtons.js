@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 
 const ControlButtons = props => {
   return (
-  <div>
-    <button onClick={props.onSplit}>计次</button>
-    <button onClick={props.onReset}>复位</button>
-    <button onClick={props.onStart}>启动</button>
-    <button onClick={props.onPause}>暂停</button>
-  </div>
+      <div>
+        {props.activated ?
+            <>
+              <button onClick={props.onSplit}>计次</button>
+              <button onClick={props.onPause}>暂停</button>
+            </> :
+            <>
+              <button onClick={props.onReset}>复位</button>
+              <button onClick={props.onStart}>启动</button>
+            </>
+        }
+      </div>
   );
 };
 
