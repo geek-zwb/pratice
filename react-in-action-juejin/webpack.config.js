@@ -18,45 +18,49 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: [
+              // "transform-decorators-legacy",
+              ['@babel/proposal-class-properties', {'loose': true}],
+            ],
+          },
+        },
       },
       {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader'
-        ]
+          'css-loader',
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
-          'file-loader'
-        ]
+          'file-loader',
+        ],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
-          'file-loader'
-        ]
-      }
-    ]
+          'file-loader',
+        ],
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'Hot Module Replacement',
-      template: './index.html'
+      template: './index.html',
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ],
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
-    hot: true
+    hot: true,
   },
   optimization: {
-    usedExports: true // tree shaking, relies on the static structure of ES2015 module syntax
-  }
+    usedExports: true, // tree shaking, relies on the static structure of ES2015 module syntax
+  },
 };

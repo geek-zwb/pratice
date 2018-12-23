@@ -1,6 +1,4 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './src';
-console.log('ttttttttt');
-console.log('document.getElementById(\'app\')', document.getElementById('app'));
+import App from './src/stop-watch/index';
 ReactDOM.render(<App />, document.getElementById('app'));
