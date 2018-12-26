@@ -22,6 +22,7 @@ module.exports = {
             plugins: [
               // "transform-decorators-legacy",
               ['@babel/proposal-class-properties', {'loose': true}],
+              "styled-jsx/babel"
             ],
           },
         },

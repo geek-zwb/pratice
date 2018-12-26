@@ -6,14 +6,21 @@ const ControlButtons = props => {
       <div>
         {props.activated ?
             <>
-              <button onClick={props.onSplit}>计次</button>
-              <button onClick={props.onPause}>暂停</button>
+              <button className="ctrl-btn" onClick={props.onSplit}>计次</button>
+              <button className="ctrl-btn" onClick={props.onPause}>暂停</button>
             </> :
             <>
-              <button onClick={props.onReset}>复位</button>
-              <button onClick={props.onStart}>启动</button>
+              <button className="ctrl-btn" onClick={props.onReset}>复位</button>
+              <button className="ctrl-btn" onClick={props.onStart}>启动</button>
             </>
         }
+        <style jsx>{`
+          .ctrl-btn {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+          }
+        `}</style>
       </div>
   );
 };
